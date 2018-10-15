@@ -11,6 +11,14 @@ const {verifyToken} =require('../helpers/jwt')
 //   res.sendFile(path.join(__dirname, '../public/index.html'))
 // });
 
+router.get('/:title', (req,res,next) =>{
+  const {title} = req.params
+  console.log('GET REQUEST FOR ' + title)
+  Cadav.find({title}).populate('lines')
+    .then((r) => res.status(200).json(r))
+    .catch(console.log('Cadav not Found'))
+})
+
 router.post('/new', (req,res,next)=> {
   const {title, writer, text} = req.body
   Line.create({writer, text})
