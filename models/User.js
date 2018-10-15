@@ -9,16 +9,9 @@ const userSchema = new Schema({
     },
     following:[{
         type:Schema.Types.ObjectId,
-        ref:"User"
+        ref:"Cadav"
     }],
     email: String,
-    photoURL: String,
-    pictures:[
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Picture"
-        }
-    ]
 },{
     timestamps:{
         createdAt:"created_at",

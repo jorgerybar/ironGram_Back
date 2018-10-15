@@ -1,10 +1,15 @@
 const express = require('express');
 const router  = express.Router();
 const path = require('path')
+const Cadav = require('../models/Cadav')
 
-/* GET home page */
-router.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
-});
+// /* GET home page */
+// router.get('/*', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, '../public/index.html'))
+// });
 
+router.post('/new', (req,res,next)=> {
+  console.log('req.body' + req.body)
+  res.status(201).json({hello: 'hello'})
+})
 module.exports = router;
