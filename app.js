@@ -68,9 +68,9 @@ const cadavs = require('./routes/cadavs')
 
 // app.use('/pictures', pictures)
 // app.use('/users', users)
+app.use('/', index);
 app.use('/',cadavs)
 app.use('/', auth)
-// app.use('/', index);
 
 
 

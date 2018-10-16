@@ -8,8 +8,3 @@ router.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, '../public/index.html'))
 });
 
-router.post('/new', (req,res,next)=> {
-  console.log('req.body' + req.body)
-  res.status(201).json({hello: 'hello'})
-})
-module.exports = router;
