@@ -14,6 +14,9 @@ const lineSchema = new Schema({
   text: {
     type: String,
     required: true
+  },
+  color: {
+    type: String,
   }
 },{
   timestamps:{

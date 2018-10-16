@@ -11,14 +11,6 @@ const {verifyToken} =require('../helpers/jwt')
 //   res.sendFile(path.join(__dirname, '../public/index.html'))
 // });
 
-router.get('/:title', (req,res,next) =>{
-  const {title} = req.params
-  console.log('GET REQUEST FOR ' + title)
-  Cadav.find({title}).populate('lines')
-    .then((r) => res.status(200).json(r))
-    .catch(console.log('Cadav not Found'))
-})
-
 router.post('/new', (req,res,next)=> {
   const {title, writer, text} = req.body
   Line.create({writer, text})
@@ -35,5 +27,38 @@ router.post('/new', (req,res,next)=> {
       .catch(e=>console.log(e))
     })
 })
+
+router.get('/list', (req,res,next) =>{
+  console.log('GET REQUEST FOR LIST')
+  Cadav.find({}).populate('lines')
+    .then((r) => res.status(200).json(r))
+    .catch((e)=>console.log(e))
+})
+
+router.get('/:title', (req,res,next) =>{
+  const {title} = req.params
+  console.log('GET REQUEST FOR ' + title)
+  Cadav.find({title}).populate('lines')
+    .then((r) => res.status(200).json(r))
+    .catch(console.log('Cadav not Found'))
+})
+
+router.post('/:urlEnd', (req,res,next) =>{
+  const newLine = req.body
+  const {urlEnd} = req.params
+
+  Line.create(newLine)
+    .then(line=>{
+      console.log(line)
+      Cadav.findOneAndUpdate({urlEnd}, { $push: { lines: line } })
+       .then(cd=>{
+         console.log(cd)
+         res.status(200).json(cd)})
+      .catch(e=>console.log(e))
+    })
+
+})
+
+
 
 module.exports = router;
