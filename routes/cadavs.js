@@ -17,7 +17,7 @@ router.post('/new', (req,res,next)=> {
     .then(line=>{
       console.log(line)
       const lines = [line._id]
-      const urlEnd = title // must use a .URL encoded or something similar
+      const urlEnd = title.replace(/ /g, '') // must use a trim or something similar
       console.log('urlEnd='+urlEnd)
       const newCadav = {urlEnd, title, lines}
       Cadav.create(newCadav)
@@ -30,7 +30,7 @@ router.post('/new', (req,res,next)=> {
 
 router.get('/list', (req,res,next) =>{
   console.log('GET REQUEST FOR LIST')
-  Cadav.find({}).populate('lines')
+  Cadav.find({}).populate('lines').sort({"created_at":-1})
     .then((r) => res.status(200).json(r))
     .catch((e)=>console.log(e))
 })
